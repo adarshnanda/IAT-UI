@@ -1,11 +1,16 @@
 var app = angular.module('iat', ['ui.select']);
-	   app.controller('iatLandingController', function () {
+	   app.controller('iatLandingController', function (iatLandingService) {
 	var self = this;
 	function init(){
-		self.controllerNames = ['landing','review', 'confirm'];
+		self.controllerNames = [];
+		self.getControllerName();
 	}
-	self.operation = function(){
-		
-	};
+	self.getControllerName = function(){
+		iatLandingService.getControllerNames().then(function(response){
+			angular.forEach(response.fileNames, function(fileName){
+				self.controllerNames.push(fileName);
+			});
+		});
+	}
 	init();
 });
