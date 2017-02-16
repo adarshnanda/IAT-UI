@@ -14,7 +14,14 @@ var app = angular.module('iat');
 			debugger;
 			deffered.resolve(response.data);
 		},function(error){
-			deffered.reject(error);
+			var mock={
+				fileNames:[
+				'confirm',
+				'review',
+				'landing'
+				]
+			};
+			deffered.resolve(mock);
 		});
 		return deffered.promise;
 	}

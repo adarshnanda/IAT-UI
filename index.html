@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="controllers/iatLandingController.js"></script>
 	<script type="text/javascript" src="services/iatLandingService.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 </head>
 <body>
 	<h1 style="text-align: center ">Impact analysis tool</h1>
@@ -15,7 +16,7 @@
 		<ui-select theme="selectize" ng-model="ctrl.blas" search-enabled="true">
           <ui-select-match placeholder="select">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="controllerName in ctrl.controllerNames | filter: $select.search">
-            <div ng-bind="controllerName">
+            <div ng-bind-html="controllerName">
             </div>
           </ui-select-choices>
         </ui-select>

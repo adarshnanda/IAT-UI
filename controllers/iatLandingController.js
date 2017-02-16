@@ -1,4 +1,4 @@
-var app = angular.module('iat', ['ui.select']);
+var app = angular.module('iat', ['ui.select', 'ngSanitize']);
 	   app.controller('iatLandingController', function (iatLandingService) {
 	var self = this;
 	function init(){
