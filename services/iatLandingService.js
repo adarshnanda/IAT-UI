@@ -3,7 +3,7 @@ var app = angular.module('iat');
 	var self = this;
 	var deffered = $q.defer();
 	self.getControllerNames = function(){
-		return getAPI('http://10.221.2.21:8080/iat/webapi/myresource/searchCriterion?fileType=controller');
+		return getAPI('http://adarshnanda93-test.apigee.net/adarsh/getName?name=adarsh');
 	};
 	var getAPI = function(targetUrl){
 		var request = $http({
