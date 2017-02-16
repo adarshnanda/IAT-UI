@@ -1,9 +1,9 @@
 var app = angular.module('iat');
-	   app.service('iatLandingService', function ($http, $q) {
+	   app.service('iatLandingService', function ($http, $q, API_ENDPOINTS) {
 	var self = this;
 	var deffered = $q.defer();
 	self.getControllerNames = function(){
-		return getAPI('http://adarshnanda93-test.apigee.net/adarsh/getName?name=adarsh');
+		return getAPI(API_ENDPOINTS.API001_getName);
 	};
 	var getAPI = function(targetUrl){
 		var request = $http({
