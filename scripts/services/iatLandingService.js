@@ -11,7 +11,6 @@ var app = angular.module('iat');
                         url: targetUrl,
                     });
 		request.then(function(response){
-			debugger;
 			deffered.resolve(response.data);
 		},function(error){
 			var mock={
