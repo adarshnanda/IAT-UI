@@ -1,6 +1,7 @@
 (function(){
   
   Renderer = function(canvas){
+    console.log(canvas);
     var dom = $(canvas)
     var canvas = dom.get(0)
     var ctx = canvas.getContext("2d")

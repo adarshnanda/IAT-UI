@@ -9,29 +9,61 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
 	var self = this;
 	function init(){
 		self.searchFields = [];
-		self.controllerNames = [];
-		self.getControllerName();
+		self.fileNames = [];
+    self.fileTypes = [];
+    self.methodNames = [];
+		self.getFileType();
 		self.addExtraSearch();
 		self.data1={
 			"nodes":{},
     		"edges":{}
     	};
-    	createGraph();
 	}
-	self.getControllerName = function(){
-		iatLandingService.getControllerNames().then(function(response){
-			angular.forEach(response.fileNames, function(fileName){
-				self.controllerNames.push(fileName);
+	self.getFileType = function(){
+		iatLandingService.getFileType().then(function(response){
+			angular.forEach(response.resourceNames, function(fileType){
+				self.fileTypes.push(fileType);
 			});
 		});
 	};
+
+  self.getFileName = function(search){
+    var params = {
+      fileType: search.fileType
+    };
+    iatLandingService.getFileName(params).then(function(response){
+      search.fileName = search.methodName =undefined;
+      angular.forEach(response.resourceNames, function(fileName){
+        self.fileNames.push(fileName);
+      });
+    });
+  };
+
+  self.getMethodName = function(search){
+    var params = {
+      fileType: search.fileType,
+      fileName: search.fileName
+    };
+    iatLandingService.getMethodName(params).then(function(response){
+      search.methodName =undefined;
+      angular.forEach(response.resourceNames, function(methodName){
+        self.methodNames.push(methodName);
+      });
+    });
+  };
+
 	self.addExtraSearch = function(){
 		self.searchFields.push({});
 		self.index = self.searchFields.length-1;
 	};
+  self.search = function(){
+    self.data1 = {};
 
+    createGraph();
+    self.displayGraph = true;
+  };
 	function createGraph() {
-		self.data1={
+		self.data1 = {
   "nodes": {
     "getAutoPay": {
       "color": "#EEB211",
@@ -44,14 +76,20 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
       "color": "#21526a",
       "shape": "dot",
       "radius": 30,
+      "image": "Travel.png",
       "label": "Travel 24",
       "counter": "24",
+      "image_w": 48,
+      "image_h": 48,
       "alpha": 1
     },
     "Education": {
       "color": "#941e5e",
       "shape": "dot",
       "radius": 40,
+      "image": "Education.png",
+      "image_w": 48,
+      "image_h": 48,
       "label": "Education 21",
       "alpha": 1
     },
@@ -59,6 +97,9 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
       "color": "#c1d72e",
       "shape": "dot",
       "radius": 35,
+      "image": "Ecommerce.png",
+      "image_w": 48,
+      "image_h": 48,
       "label": "Ecommerce 17",
       "alpha": 1
     },
@@ -66,13 +107,19 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
       "color": "#619b45",
       "shape": "dot",
       "radius": 22,
+      "image": "HealthCare.png",
+      "image_w": 48,
       "label": "HealthCare 53",
+      "image_h": 48,
       "alpha": 1
     },
     "MissedCall": {
       "color": "#009fc3",
       "shape": "dot",
       "radius": 47,
+      "image": "MissedCall.png",
+      "image_w": 48,
+      "image_h": 48,
       "label": "Missed Call 234",
       "alpha": 1
     },
@@ -80,6 +127,9 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
       "color": "#d11b67",
       "shape": "dot",
       "radius": 33,
+      "image": "Realty.png",
+      "image_w": 48,
+      "image_h": 48,
       "label": "Realty 4",
       "alpha": 1
     },
@@ -221,7 +271,6 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
     }
   }
 };
-		console.log("gd=",self.data1);
-    }
+  }
 	init();
 });
