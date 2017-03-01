@@ -20,7 +20,7 @@ app.directive('arbor', function() {
 				sys.renderer = Renderer(id);
 				sys.graft(v);
 				sys.merge(v);
-				sys.tweenNode("getAutoPay", 3, {color:"#0431B4", radius:2})
+				sys.tweenNode("isDateEligible", 3, {color:"#0431B4", radius:2})
 				sys.start();
             });
         }

@@ -45,7 +45,11 @@
          
           // Don't draw lines that shouldn't be there
           if (edge.source.data.alpha * edge.target.data.alpha == 0) return
-          gfx.line(pt1, pt2, {stroke:colour.orange, width:2, alpha:edge.target.data.alpha})
+          gfx.line(pt1, pt2, {stroke:colour.orange, width:2, alpha:edge.target.data.alpha});
+          ctx.fillStyle = "black";
+          ctx.font = 'italic 13px sans-serif';
+          debugger;
+          ctx.fillText(edge.target.data.fileName, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
         })
         
         // draw the nodes
@@ -162,8 +166,8 @@
 
             if (!nearest.node) return false
 
-            if (nearest.node.data.shape!='dot'){
-              selected = (nearest.distance < 50) ? nearest : null
+            if (nearest.node.data.shape=='dot'){
+              selected = (nearest.distance < 50) ? nearest : nearest
               
               if (selected){
                  dom.addClass('linkable')

@@ -56,7 +56,7 @@
 <!-- select file type -->
 
 	<div class="col-sm-3">
-		<ui-select theme="selectize" style="width:200px" ng-model="search.fileType" search-enabled="true" ng-change="ctrl.getFileName(search);ctrl.displayGraph=false">
+		<ui-select theme="selectize" style="width:200px" ng-model="search.fileType" search-enabled="true" ng-change="ctrl.getFileName(search, $index);ctrl.displayGraph=false">
           <ui-select-match placeholder="select file type">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="fileType in ctrl.fileTypes | filter: $select.search">
             <div ng-bind-html="fileType">
@@ -67,7 +67,7 @@
 <!-- select file name -->
 
 	<div class="col-sm-3" ng-disabled="!search.fileType">
-		<ui-select theme="selectize" style="width:200px" ng-model="search.fileName" search-enabled="true" ng-change="ctrl.getMethodName(search);ctrl.displayGraph=false">
+		<ui-select theme="selectize" style="width:200px" ng-model="search.fileName" search-enabled="true" ng-change="ctrl.getMethodName(search, $index);ctrl.displayGraph=false">
           <ui-select-match placeholder="select file name">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="fileName in ctrl.fileNames | filter: $select.search">
             <div ng-bind-html="fileName">
@@ -98,7 +98,7 @@
   </div>
 </div>
 <div class="row container-fluid m-t-20 text-center" ng-if="ctrl.displayGraph">
-<canvas id="viewport" arbor data="ctrl.data1" height="800" width="800">
+<canvas id="viewport" arbor data="ctrl.data1" height="500" width="1100">
 </canvas>
 </div>
 </body>
