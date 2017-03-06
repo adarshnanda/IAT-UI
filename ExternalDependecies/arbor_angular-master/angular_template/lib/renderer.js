@@ -48,7 +48,6 @@
           gfx.line(pt1, pt2, {stroke:colour.orange, width:2, alpha:edge.target.data.alpha});
           ctx.fillStyle = "black";
           ctx.font = 'italic 13px sans-serif';
-          debugger;
           ctx.fillText(edge.target.data.fileName, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
         })
         
