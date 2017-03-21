@@ -5,7 +5,7 @@ var app = angular.module('iat', ['ui.select', 'ngSanitize','ui.router']);
         return replaceText;
     }
 });*/
-app.controller('iatLandingController', function ($scope, iatLandingService) {
+app.controller('iatLandingController', function ($scope, iatLandingService, $state) {
 	var self = this;
 	function init(){
 		self.searchFields = [];
@@ -62,6 +62,7 @@ app.controller('iatLandingController', function ($scope, iatLandingService) {
 		self.index = self.searchFields.length-1;
 	};
   self.search = function(){
+    $state.go('search');
     self.data1 = {};
 
     createGraph();

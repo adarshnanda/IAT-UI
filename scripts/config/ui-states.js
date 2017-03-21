@@ -1,3 +1,7 @@
-angular.module('iat').config(function(argument) {
-	// body...
+angular.module('iat').config(function($stateProvider) {
+	$stateProvider
+    .state('search', {
+      url: "/search",
+      templateUrl: "search.html"
+    })
 });
