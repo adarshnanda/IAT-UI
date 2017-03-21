@@ -1,4 +1,4 @@
-var app = angular.module('iat', ['ui.select', 'ngSanitize']);
+var app = angular.module('iat', ['ui.select', 'ngSanitize','ui.router']);
 /*app.filter('isempty', function() {
     return function(input, replaceText) {
         if(input) return input;
