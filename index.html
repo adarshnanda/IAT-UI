@@ -10,7 +10,8 @@
    <!-- style sheet dependencies -->
 
    <!-- javaScript dependencies -->
-  	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  	<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   	<script type="text/javascript" src="scripts/controllers/iatLandingController.js"></script>
   	<script type="text/javascript" src="scripts/constants/apiEndpoints.js"></script>
   	<script type="text/javascript" src="scripts/services/iatLandingService.js"></script>
@@ -94,7 +95,8 @@
 
 <div class="row container-fluid m-t-20">
   <div class="text-center">
-    <button ng-disabled="!ctrl.searchFields[ctrl.index].methodName" class="btn btn-default" ng-click="ctrl.search()">search</button>
+  <!-- ng-disabled="!ctrl.searchFields[ctrl.index].methodName" -->
+    <button class="btn btn-default" ng-click="ctrl.search()">search</button>
   </div>
 </div>
 <div class="row container-fluid m-t-20 text-center" ng-if="ctrl.displayGraph">

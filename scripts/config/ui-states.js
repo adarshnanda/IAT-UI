@@ -1,0 +1,3 @@
+angular.module('iat').config(function(argument) {
+	// body...
+});
