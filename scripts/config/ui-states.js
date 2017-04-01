@@ -1,7 +1,7 @@
-angular.module('iat').config(function($stateProvider) {
+angular.module('iat', ['ui.select', 'ngSanitize','ui.router']).config(function($stateProvider) {
 	$stateProvider
     .state('search', {
       url: "/search",
-      templateUrl: "search.html"
+      templateUrl: "scripts/views/search.html"
     })
 });
