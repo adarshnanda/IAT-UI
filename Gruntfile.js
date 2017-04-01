@@ -3,8 +3,12 @@ module.exports = function (grunt) {
 	//npm tasks
 	var npmTasks = ['grunt-contrib-clean','grunt-angular-templates'];
 
-	//configure grunt
-	grunt.initConfig({
+
+	//grunt tasks
+	var gruntTasks = ['clean', 'ngtemplates'];
+
+
+	var configJson = {
 		pkg: grunt.file.readJSON('package.json'),
 		clean: ['.tmp'],
 		ngtemplates:{
@@ -22,8 +26,12 @@ module.exports = function (grunt) {
 				}
 			}
 		}
-	});
-	grunt.registerTask('serve', ['clean', 'ngtemplates']);
+	};
+
+	//configure grunt
+	grunt.initConfig(configJson);
+	//register grunt tasks
+	grunt.registerTask('serve', gruntTasks);
 
 	//load npm tasks
 	for(var index=0;index<npmTasks.length;index++){
