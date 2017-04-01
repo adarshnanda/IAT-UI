@@ -9,6 +9,15 @@ module.exports = function (grunt) {
 			app:{
 				src:'scripts/**/*.html',
 				dest:'.tmp/templates.js'
+			},
+			options:{
+				module:'iat-ui',
+				htmlmin:{
+				    collapseWhitespace:true,
+				    removeComments:true,
+				    removeEmptyAttributes:true,
+				    removeRedundantAttributes:true
+				}
 			}
 		}
 	});
