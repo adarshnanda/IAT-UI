@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html ng-app="iat" ng-controller="iatLandingController as ctrl">
 <head>
-	<title>Impact analysis tool</title>
+  <title>Impact analysis tool</title>
    <!-- style sheet dependencies -->
-    
-<!-- injector:js -->
-<script src="/scripts/config/ui-states.js"></script>
-<script src="/scripts/constants/apiEndpoints.js"></script>
-<script src="/scripts/controllers/iatLandingController.js"></script>
-<script src="/scripts/directives/arbor-directives.js"></script>
-<script src="/scripts/services/iatLandingService.js"></script>
-<script src="/bower_components/angular-chart/angular-chart.min.js"></script>
-<script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="/bower_components/angular-ui-select/dist/select.min.js"></script>
-<script src="/bower_components/angular/angular.min.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/bower_components/c3/c3.min.js"></script>
-<script src="/bower_components/d3/d3.min.js"></script>
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/jquery/dist/jquery.slim.min.js"></script>
-<script src="/bower_components/jquery/external/sizzle/dist/sizzle.min.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/arbor-tween.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/arbor.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/graphics.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/jquery.gridster.min.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/ng-grid.min.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/pivot.js"></script>
-<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/renderer.js"></script>
-<!-- endinjector -->
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="ExternalDependecies/style/selectize.default.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="styles/common.css" />
+   <!-- style sheet dependencies -->
+
+   <!-- javaScript dependencies -->
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="scripts/controllers/iatLandingController.js"></script>
+    <script type="text/javascript" src="scripts/constants/apiEndpoints.js"></script>
+    <script type="text/javascript" src="scripts/config/ui-states.js"></script>
+    <script type="text/javascript" src="scripts/services/iatLandingService.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/arbor.js"></script>
+    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/arbor-tween.js"></script>
+    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/graphics.js"></script>
+    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/renderer.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/directives/arbor-directives.js"></script>
+
     <script language="javascript">
       var colour = {
       orange:"#EEB211",
@@ -44,6 +41,7 @@
     </script>
    <!-- javaScript dependencies -->
 
+   <script type="text/ng-template" id="search.html">
      <div class="row container-fluid m-t-20 text-center" ng-if="ctrl.displayGraph">
       <canvas id="viewport" arbor data="ctrl.data1" height="600" width="600">
       </canvas>
@@ -52,50 +50,50 @@
 
 </head>
 <body>
-	<h1 style="text-align: center ">Impact analysis tool</h1>
+  <h1 style="text-align: center ">Impact analysis tool</h1>
   <div class="row container-fluid m-l-70" ng-repeat="search in ctrl.searchFields">
-	<!-- select branch -->
-	<div class="col-sm-3" ng-if="false">	
-		<ui-select theme="selectize" style="width:200px" ng-model="search.branch" search-enabled="true">
+  <!-- select branch -->
+  <div class="col-sm-3" ng-if="false">  
+    <ui-select theme="selectize" style="width:200px" ng-model="search.branch" search-enabled="true">
           <ui-select-match placeholder="select branch">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="controllerName in ctrl.controllerNames | filter: $select.search">
             <div ng-bind-html="controllerName">
             </div>
           </ui-select-choices>
         </ui-select>
-	</div>
+  </div>
 <!-- select file type -->
 
-	<div class="col-sm-3">
-		<ui-select theme="selectize" style="width:200px" ng-model="search.fileType" search-enabled="true" ng-change="ctrl.getFileName(search, $index);ctrl.displayGraph=false">
+  <div class="col-sm-3">
+    <ui-select theme="selectize" style="width:200px" ng-model="search.fileType" search-enabled="true" ng-change="ctrl.getFileName(search, $index);ctrl.displayGraph=false">
           <ui-select-match placeholder="select file type">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="fileType in ctrl.fileTypes | filter: $select.search">
             <div ng-bind-html="fileType">
             </div>
           </ui-select-choices>
         </ui-select>
-	</div>
+  </div>
 <!-- select file name -->
 
-	<div class="col-sm-3" ng-disabled="!search.fileType">
-		<ui-select theme="selectize" style="width:200px" ng-model="search.fileName" search-enabled="true" ng-change="ctrl.getMethodName(search, $index);ctrl.displayGraph=false">
+  <div class="col-sm-3" ng-disabled="!search.fileType">
+    <ui-select theme="selectize" style="width:200px" ng-model="search.fileName" search-enabled="true" ng-change="ctrl.getMethodName(search, $index);ctrl.displayGraph=false">
           <ui-select-match placeholder="select file name">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="fileName in ctrl.fileNames | filter: $select.search">
             <div ng-bind-html="fileName">
             </div>
           </ui-select-choices>
         </ui-select>
-	</div>
+  </div>
 <!-- select method name -->
-	<div class="col-sm-3" ng-disabled="!search.fileName">
-		<ui-select theme="selectize" style="width:200px" ng-model="search.methodName" search-enabled="true">
+  <div class="col-sm-3" ng-disabled="!search.fileName">
+    <ui-select theme="selectize" style="width:200px" ng-model="search.methodName" search-enabled="true">
           <ui-select-match placeholder="select method name">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="methodName in ctrl.methodNames | filter: $select.search">
             <div ng-bind-html="methodName">
             </div>
           </ui-select-choices>
         </ui-select>
-	</div>
+  </div>
 </div>
 <div class="row container-fluid m-t-20" ng-if="false">
   <div class="text-center">

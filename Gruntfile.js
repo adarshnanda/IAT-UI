@@ -1,12 +1,22 @@
 module.exports = function (grunt) {
 
 	//npm tasks
-	var npmTasks = ['grunt-contrib-clean','grunt-angular-templates','grunt-injector'];
+	var npmTasks = [
+		'grunt-contrib-clean',
+		'grunt-angular-templates',
+		'grunt-injector',
+		'grunt-contrib-copy'
+		];
 
 
 	//grunt tasks
-	var gruntTasks = ['clean', 'ngtemplates', 'injector'];
-
+	var gruntTasks = [
+		'clean',
+		'copy',
+		'ngtemplates',
+		'injector'
+		];
+	//inject scripts
 	var transformScript = function(replacement) {
   		return function(filePath) {
     		filePath = filePath.replace(replacement, '');
@@ -15,11 +25,25 @@ module.exports = function (grunt) {
 	};
 	var configJson = {
 		pkg: grunt.file.readJSON('package.json'),
+		copy:{
+			index:{
+				src:'index.html',
+				dest:'.tmp/index.html'
+			},
+			javascript:{
+				src:'scripts/**/*.js',
+				dest:'.tmp/'
+			},
+			css:{
+				src:'styles/**/*.css',
+				dest:'.tmp/'
+			}
+		},
 		clean: ['.tmp'],
 		ngtemplates:{
 			app:{
 				src:'scripts/**/*.html',
-				dest:'.tmp/templates.js'
+				dest:'.tmp/scripts/templates.js'
 			},
 			options:{
 				module:'iat',
@@ -35,11 +59,11 @@ module.exports = function (grunt) {
     		js: {
     			options: {
     				starttag:'<!-- injector:js -->',
-	      			transform: transformScript('./'),
-	      			template: 'index2.html'
+	      			transform: transformScript('/.tmp/'),
+	      			template: '.tmp/index.html'
     			},
 			    files: {
-			      'index2.html': ['scripts/**/*.js','bower_components/**/*.min.js','ExternalDependecies/**/lib/*.js']
+			      '.tmp/index.html': ['.tmp/scripts/**/*.js']
 			    }
   			}
   		}
