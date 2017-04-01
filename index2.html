@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="iat" ng-controller="iatLandingController as ctrl">
+<head>
+	<title>Impact analysis tool</title>
+   <!-- style sheet dependencies -->
+    
+<!-- injector:js -->
+<script src="/scripts/config/ui-states.js"></script>
+<script src="/scripts/constants/apiEndpoints.js"></script>
+<script src="/scripts/controllers/iatLandingController.js"></script>
+<script src="/scripts/directives/arbor-directives.js"></script>
+<script src="/scripts/services/iatLandingService.js"></script>
+<script src="/bower_components/angular-chart/angular-chart.min.js"></script>
+<script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="/bower_components/angular-ui-select/dist/select.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/c3/c3.min.js"></script>
+<script src="/bower_components/d3/d3.min.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/jquery/dist/jquery.slim.min.js"></script>
+<script src="/bower_components/jquery/external/sizzle/dist/sizzle.min.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/arbor-tween.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/arbor.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/graphics.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/jquery.gridster.min.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/ng-grid.min.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/pivot.js"></script>
+<script src="/ExternalDependecies/arbor_angular-master/angular_template/lib/renderer.js"></script>
+<!-- endinjector -->
+    <script language="javascript">
+      var colour = {
+      orange:"#EEB211",
+      darkblue:"#21526a",
+      purple:"#941e5e",
+      limegreen:"#c1d72e",
+      darkgreen:"#619b45",
+      lightblue:"#009fc3",
+      pink:"#d11b67",    
+    };
+    var sys = arbor.ParticleSystem();
+    </script>
+   <!-- javaScript dependencies -->
+
+     <div class="row container-fluid m-t-20 text-center" ng-if="ctrl.displayGraph">
+      <canvas id="viewport" arbor data="ctrl.data1" height="600" width="600">
+      </canvas>
+    </div>
+   </script>
+
+</head>
+<body>
+	<h1 style="text-align: center ">Impact analysis tool</h1>
+  <div class="row container-fluid m-l-70" ng-repeat="search in ctrl.searchFields">
+	<!-- select branch -->
+	<div class="col-sm-3" ng-if="false">	
+		<ui-select theme="selectize" style="width:200px" ng-model="search.branch" search-enabled="true">
+          <ui-select-match placeholder="select branch">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="controllerName in ctrl.controllerNames | filter: $select.search">
+            <div ng-bind-html="controllerName">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+	</div>
+<!-- select file type -->
+
+	<div class="col-sm-3">
+		<ui-select theme="selectize" style="width:200px" ng-model="search.fileType" search-enabled="true" ng-change="ctrl.getFileName(search, $index);ctrl.displayGraph=false">
+          <ui-select-match placeholder="select file type">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="fileType in ctrl.fileTypes | filter: $select.search">
+            <div ng-bind-html="fileType">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+	</div>
+<!-- select file name -->
+
+	<div class="col-sm-3" ng-disabled="!search.fileType">
+		<ui-select theme="selectize" style="width:200px" ng-model="search.fileName" search-enabled="true" ng-change="ctrl.getMethodName(search, $index);ctrl.displayGraph=false">
+          <ui-select-match placeholder="select file name">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="fileName in ctrl.fileNames | filter: $select.search">
+            <div ng-bind-html="fileName">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+	</div>
+<!-- select method name -->
+	<div class="col-sm-3" ng-disabled="!search.fileName">
+		<ui-select theme="selectize" style="width:200px" ng-model="search.methodName" search-enabled="true">
+          <ui-select-match placeholder="select method name">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="methodName in ctrl.methodNames | filter: $select.search">
+            <div ng-bind-html="methodName">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+	</div>
+</div>
+<div class="row container-fluid m-t-20" ng-if="false">
+  <div class="text-center">
+    <button ng-click="ctrl.addExtraSearch()" class="btn btn-default">add another row</button>
+  </div>
+</div>
+
+<div class="row container-fluid m-t-20">
+  <div class="text-center">
+  <!-- ng-disabled="!ctrl.searchFields[ctrl.index].methodName" -->
+    <button class="btn btn-default" ng-click="ctrl.search()">search</button>
+  </div>
+</div>
+<div ui-view></div>
+</body>
+</html>
