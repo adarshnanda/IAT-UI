@@ -5,7 +5,8 @@ module.exports = function (grunt) {
 		'grunt-contrib-clean',
 		'grunt-angular-templates',
 		'grunt-injector',
-		'grunt-contrib-copy'
+		'grunt-contrib-copy',
+		'grunt-contrib-concat'
 		];
 
 
@@ -14,6 +15,7 @@ module.exports = function (grunt) {
 		'clean',
 		'copy',
 		'ngtemplates',
+		'concat',
 		'injector'
 		];
 	//inject scripts
@@ -25,6 +27,12 @@ module.exports = function (grunt) {
 	};
 	var configJson = {
 		pkg: grunt.file.readJSON('package.json'),
+		concat:{
+			files:{
+				src:'scripts/**/*.js',
+				dest:'.tmp/concat/scripts.js'
+			}
+		},
 		copy:{
 			index:{
 				src:'index.html',
@@ -32,6 +40,10 @@ module.exports = function (grunt) {
 			},
 			javascript:{
 				src:'scripts/**/*.js',
+				dest:'.tmp/'
+			},
+			externalJs:{
+				src:'ExternalDependecies/dependencies/*.js',
 				dest:'.tmp/'
 			},
 			css:{
@@ -43,7 +55,7 @@ module.exports = function (grunt) {
 		ngtemplates:{
 			app:{
 				src:'scripts/**/*.html',
-				dest:'.tmp/scripts/templates.js'
+				dest:'.tmp/concat/templates.js'
 			},
 			options:{
 				module:'iat',
@@ -63,7 +75,17 @@ module.exports = function (grunt) {
 	      			template: '.tmp/index.html'
     			},
 			    files: {
-			      '.tmp/index.html': ['.tmp/scripts/**/*.js']
+			      '.tmp/index.html': ['.tmp/concat/**/*.js']
+			    }
+  			},
+  			Ed: {
+    			options: {
+    				starttag:'<!-- injector:Ed -->',
+	      			transform: transformScript('/.tmp/'),
+	      			template: '.tmp/index.html'
+    			},
+			    files: {
+			      '.tmp/index.html': ['.tmp/ExternalDependecies/dependencies/**/*.js']
 			    }
   			}
   		}
