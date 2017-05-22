@@ -1,0 +1,22 @@
+{
+  "name": "iatui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adarshnanda/IAT-UI.git"
+  },
+  "author": "adarsh nanda",
+  "bugs": {
+    "url": "https://github.com/adarshnanda/IAT-UI/issues"
+  },
+  "homepage": "https://github.com/adarshnanda/IAT-UI#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-angular-templates": "^1.1.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-injector": "^1.1.0"
+  }
+}
