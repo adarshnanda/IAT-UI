@@ -1,5 +1,4 @@
-var app = angular.module('iat');
-	   app.service('iatLandingService', function ($http, $q, API_ENDPOINTS) {
+angular.module('iat').service('iatLandingService', function ($http, $q, API_ENDPOINTS) {
 	var self = this;
 	self.getFileType = function(){
 		return getAPI(API_ENDPOINTS.API001_getFileType);
