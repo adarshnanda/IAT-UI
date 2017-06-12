@@ -1,11 +1,4 @@
-var app = angular.module('iat');
-/*app.filter('isempty', function() {
-    return function(input, replaceText) {
-        if(input) return input;
-        return replaceText;
-    }
-});*/
-app.controller('iatLandingController', function ($scope, iatLandingService, $state) {
+angular.module('iat').controller('iatLandingController', function ($scope, iatLandingService, $state) {
 	var self = this;
 	function init(){
 		self.searchFields = [];
