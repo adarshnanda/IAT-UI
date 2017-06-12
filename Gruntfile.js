@@ -6,18 +6,29 @@ module.exports = function (grunt) {
 		'grunt-angular-templates',
 		'grunt-injector',
 		'grunt-contrib-copy',
-		'grunt-contrib-concat'
+		'grunt-contrib-concat',
+		'grunt-karma'
 		];
 
 
 	//grunt tasks
-	var gruntTasks = [
+	var serve = [
 		'clean',
 		'copy',
 		'ngtemplates',
 		'concat',
 		'injector'
 		];
+
+	var testingTask = [
+		'clean',
+		'copy',
+		'ngtemplates',
+		'concat',
+		'injector:test',
+		'injector:Ed',
+		'karma'
+	];
 	//inject scripts
 	var transformScript = function(replacement) {
   		return function(filePath) {
@@ -27,6 +38,21 @@ module.exports = function (grunt) {
 	};
 	var configJson = {
 		pkg: grunt.file.readJSON('package.json'),
+		karma:{
+			unit:{
+			    configFile: 'test/karma.conf.js',
+			    background: false,
+			    singleRun: true,
+			    runnerPort: 9999,
+			    reportSlowerThan: 100,
+			    logLevel: 'INFO',
+			    client: {
+			      mocha:{
+			        timeout: 180000
+			      }
+			    }
+  			}
+		},
 		concat:{
 			files:{
 				src:'scripts/**/*.js',
@@ -78,6 +104,16 @@ module.exports = function (grunt) {
 			      '.tmp/index.html': ['.tmp/concat/**/*.js']
 			    }
   			},
+  			test:{
+  				options: {
+    				starttag:'<!-- injector:js -->',
+	      			transform: transformScript('/.tmp/'),
+	      			template: '.tmp/index.html'
+    			},
+			    files: {
+			      '.tmp/index.html': ['.tmp/scripts/**/*.js']
+			    }
+  			},
   			Ed: {
     			options: {
     				starttag:'<!-- injector:Ed -->',
@@ -96,7 +132,8 @@ module.exports = function (grunt) {
 	//configure grunt
 	grunt.initConfig(configJson);
 	//register grunt tasks
-	grunt.registerTask('serve', gruntTasks);
+	grunt.registerTask('serve', serve);
+	grunt.registerTask('test', testingTask);
 
 	//load npm tasks
 	for(var index=0;index<npmTasks.length;index++){
