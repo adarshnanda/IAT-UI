@@ -96,8 +96,7 @@
 
 <div class="row container-fluid m-t-20">
   <div class="text-center">
-  <!-- ng-disabled="!ctrl.searchFields[ctrl.index].methodName" -->
-    <button class="btn btn-default" ng-click="ctrl.search()">search</button>
+    <button class="btn btn-default" ng-disabled="!ctrl.searchFields[ctrl.index].methodName" ng-click="ctrl.search()">search</button>
   </div>
 </div>
 <div ui-view></div>
