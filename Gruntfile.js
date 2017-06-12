@@ -20,15 +20,6 @@ module.exports = function (grunt) {
 		'injector'
 		];
 
-	var testingTask = [
-		'clean',
-		'copy',
-		'ngtemplates',
-		'concat',
-		'injector:test',
-		'injector:Ed',
-		'karma'
-	];
 	//inject scripts
 	var transformScript = function(replacement) {
   		return function(filePath) {
@@ -104,16 +95,6 @@ module.exports = function (grunt) {
 			      '.tmp/index.html': ['.tmp/concat/**/*.js']
 			    }
   			},
-  			test:{
-  				options: {
-    				starttag:'<!-- injector:js -->',
-	      			transform: transformScript('/.tmp/'),
-	      			template: '.tmp/index.html'
-    			},
-			    files: {
-			      '.tmp/index.html': ['.tmp/scripts/**/*.js']
-			    }
-  			},
   			Ed: {
     			options: {
     				starttag:'<!-- injector:Ed -->',
@@ -133,7 +114,7 @@ module.exports = function (grunt) {
 	grunt.initConfig(configJson);
 	//register grunt tasks
 	grunt.registerTask('serve', serve);
-	grunt.registerTask('test', testingTask);
+	grunt.registerTask('test', ['serve', 'karma']);
 
 	//load npm tasks
 	for(var index=0;index<npmTasks.length;index++){
