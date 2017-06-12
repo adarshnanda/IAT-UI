@@ -4,6 +4,10 @@ module.exports = function (config) {
     	frameworks: ['mocha', 'chai'],
     	files: [
       		'bower_components/angular/angular.js',
+          'bower_components/angular-ui-select/dist/select.js',
+      		'bower_components/angular-sanitize/angular-sanitize.js',
+      		'bower_components/angular-ui-router/release/angular-ui-router.js',
+      		'bower_components/angular-mocks/angular-mocks.js',
       		'test/unit/**/*.js',
       		'.tmp/scripts/**/*.js'
     	],
@@ -13,7 +17,10 @@ module.exports = function (config) {
    		preprocessors: {
       		'.tmp/scripts/**/*.js': 'coverage'
    		},
-    	reporters: process.env['REPORTERS'] || ['coverage'],
+    	reporters: process.env['REPORTERS'] || ['spec', 'coverage'],
+      specReporter:{
+
+      },
     	coverageReporter: {
       		type: 'lcov',
       		dir: '.tmp/report/coverage-report/'
@@ -23,7 +30,8 @@ module.exports = function (config) {
   			'karma-chrome-launcher',
   			'karma-mocha',
   			'karma-chai',
-  			'karma-sinon'
+  			'karma-sinon',
+        'karma-spec-reporter'
 		],
     	client: {
       		mocha:{
