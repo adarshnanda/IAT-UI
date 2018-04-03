@@ -1,5 +1,5 @@
 {
-  "name": "IAT",
+  "name": "iat",
   "authors": [
     "Adarsh Nanda <adarsh.ch.nanda@gmail.com>"
   ],
@@ -15,7 +15,9 @@
     "tests"
   ],
   "dependencies": {
+    "angular-ui-router": "~0.2.11",
     "angular-ui-select": "^0.19.6",
+    "angular-mocks":"~1.3.16",
     "angular": "~1.3.16",
     "angular-sanitize": "~1.3.16",
     "bootstrap": "~3.3.7"

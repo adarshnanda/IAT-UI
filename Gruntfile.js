@@ -5,17 +5,21 @@ module.exports = function (grunt) {
 		'grunt-contrib-clean',
 		'grunt-angular-templates',
 		'grunt-injector',
-		'grunt-contrib-copy'
+		'grunt-contrib-copy',
+		'grunt-contrib-concat',
+		'grunt-karma'
 		];
 
 
 	//grunt tasks
-	var gruntTasks = [
+	var serve = [
 		'clean',
 		'copy',
 		'ngtemplates',
+		'concat',
 		'injector'
 		];
+
 	//inject scripts
 	var transformScript = function(replacement) {
   		return function(filePath) {
@@ -25,6 +29,27 @@ module.exports = function (grunt) {
 	};
 	var configJson = {
 		pkg: grunt.file.readJSON('package.json'),
+		karma:{
+			unit:{
+			    configFile: 'test/karma.conf.js',
+			    background: false,
+			    singleRun: true,
+			    runnerPort: 9999,
+			    reportSlowerThan: 100,
+			    logLevel: 'INFO',
+			    client: {
+			      mocha:{
+			        timeout: 180000
+			      }
+			    }
+  			}
+		},
+		concat:{
+			files:{
+				src:'scripts/**/*.js',
+				dest:'.tmp/concat/scripts.js'
+			}
+		},
 		copy:{
 			index:{
 				src:'index.html',
@@ -32,6 +57,10 @@ module.exports = function (grunt) {
 			},
 			javascript:{
 				src:'scripts/**/*.js',
+				dest:'.tmp/'
+			},
+			externalJs:{
+				src:'ExternalDependecies/dependencies/*.js',
 				dest:'.tmp/'
 			},
 			css:{
@@ -43,7 +72,7 @@ module.exports = function (grunt) {
 		ngtemplates:{
 			app:{
 				src:'scripts/**/*.html',
-				dest:'.tmp/scripts/templates.js'
+				dest:'.tmp/concat/templates.js'
 			},
 			options:{
 				module:'iat',
@@ -63,7 +92,17 @@ module.exports = function (grunt) {
 	      			template: '.tmp/index.html'
     			},
 			    files: {
-			      '.tmp/index.html': ['.tmp/scripts/**/*.js']
+			      '.tmp/index.html': ['.tmp/concat/**/*.js']
+			    }
+  			},
+  			Ed: {
+    			options: {
+    				starttag:'<!-- injector:Ed -->',
+	      			transform: transformScript('/.tmp/'),
+	      			template: '.tmp/index.html'
+    			},
+			    files: {
+			      '.tmp/index.html': ['.tmp/ExternalDependecies/dependencies/**/*.js']
 			    }
   			}
   		}
@@ -74,7 +113,8 @@ module.exports = function (grunt) {
 	//configure grunt
 	grunt.initConfig(configJson);
 	//register grunt tasks
-	grunt.registerTask('serve', gruntTasks);
+	grunt.registerTask('serve', serve);
+	grunt.registerTask('test', ['serve', 'karma']);
 
 	//load npm tasks
 	for(var index=0;index<npmTasks.length;index++){

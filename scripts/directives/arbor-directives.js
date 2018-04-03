@@ -1,8 +1,7 @@
 
 
 /* Directives */
-var app = angular.module('iat');
-app.directive('arbor', function() {
+angular.module('iat').directive('arbor', function() {
     return{
         restrict: 'A',
         scope: {

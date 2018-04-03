@@ -2,9 +2,10 @@
 <html ng-app="iat" ng-controller="iatLandingController as ctrl">
 <head>
 	<title>Impact analysis tool</title>
+  <base href="/">
    <!-- style sheet dependencies -->
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
-    <link rel="stylesheet" href="ExternalDependecies/style/selectize.default.css" />
+    <link rel="stylesheet" href="styles/external-selectize.default.css" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="styles/common.css" />
    <!-- style sheet dependencies -->
@@ -19,14 +20,9 @@
 
    <!-- bower-components -->
 
-    <!-- external dependencies -->
-     <script type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/jquery-ui-1.9.2.custom.min.js"></script>
-    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/arbor.js"></script>
-    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/arbor-tween.js"></script>
-    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/graphics.js"></script>
-    <script language="javascript" type="text/javascript" src="ExternalDependecies/arbor_angular-master/angular_template/lib/renderer.js"></script>
-    <!-- external dependencies -->
-
+    <!-- injector:Ed -->
+    <!-- endinjector -->
+    
     <!-- injector:js -->
     <!-- endinjector -->
     <script language="javascript">
@@ -100,8 +96,7 @@
 
 <div class="row container-fluid m-t-20">
   <div class="text-center">
-  <!-- ng-disabled="!ctrl.searchFields[ctrl.index].methodName" -->
-    <button class="btn btn-default" ng-click="ctrl.search()">search</button>
+    <button class="btn btn-default" ng-disabled="!ctrl.searchFields[ctrl.index].methodName" ng-click="ctrl.search()">search</button>
   </div>
 </div>
 <div ui-view></div>
