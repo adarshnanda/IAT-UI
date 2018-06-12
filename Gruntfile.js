@@ -6,18 +6,20 @@ module.exports = function (grunt) {
 		'grunt-angular-templates',
 		'grunt-injector',
 		'grunt-contrib-copy',
-		'grunt-contrib-concat'
+		'grunt-contrib-concat',
+		'grunt-karma'
 		];
 
 
 	//grunt tasks
-	var gruntTasks = [
+	var serve = [
 		'clean',
 		'copy',
 		'ngtemplates',
 		'concat',
 		'injector'
 		];
+
 	//inject scripts
 	var transformScript = function(replacement) {
   		return function(filePath) {
@@ -27,6 +29,21 @@ module.exports = function (grunt) {
 	};
 	var configJson = {
 		pkg: grunt.file.readJSON('package.json'),
+		karma:{
+			unit:{
+			    configFile: 'test/karma.conf.js',
+			    background: false,
+			    singleRun: true,
+			    runnerPort: 9999,
+			    reportSlowerThan: 100,
+			    logLevel: 'INFO',
+			    client: {
+			      mocha:{
+			        timeout: 180000
+			      }
+			    }
+  			}
+		},
 		concat:{
 			files:{
 				src:'scripts/**/*.js',
@@ -96,7 +113,8 @@ module.exports = function (grunt) {
 	//configure grunt
 	grunt.initConfig(configJson);
 	//register grunt tasks
-	grunt.registerTask('serve', gruntTasks);
+	grunt.registerTask('serve', serve);
+	grunt.registerTask('test', ['serve', 'karma']);
 
 	//load npm tasks
 	for(var index=0;index<npmTasks.length;index++){
